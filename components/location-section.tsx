@@ -16,29 +16,38 @@ export default function LocationSection() {
   ]
 
   return (
-    <section id="location" className="py-20 bg-background">
+    <section id="location" className="py-32 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">Location & Nearby</h2>
-          <p className="text-lg text-muted-foreground">Perfectly located in Bhopal</p>
+        {/* Header */}
+        <div className="mb-16">
+          <p className="text-xs text-accent font-light tracking-widest uppercase mb-4">Location</p>
+          <h2 className="font-light text-5xl md:text-6xl text-foreground mb-6" style={{ fontFamily: "Georgia, serif" }}>
+            Location & Accessibility
+          </h2>
+          <p className="text-foreground/60 font-light text-lg">
+            Perfectly positioned in Bhopal with easy access to attractions and amenities.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
+          {/* Left Content */}
           <div className="space-y-8">
             {/* Nearby Places */}
             <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6">What's Nearby?</h3>
-              <div className="space-y-4">
+              <h3 className="text-lg font-light text-foreground mb-6 tracking-wide uppercase">Nearby Attractions</h3>
+              <div className="space-y-3">
                 {nearbyPlaces.map((place, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-4 p-4 bg-card border border-border rounded-lg hover:shadow-md transition"
+                    className="flex items-start gap-4 p-4 bg-card border border-border/30 rounded-lg hover:border-accent/50 hover:bg-secondary/20 transition-all group cursor-pointer"
                   >
-                    <div className="text-3xl flex-shrink-0">{place.icon}</div>
+                    <div className="text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">
+                      {place.icon}
+                    </div>
                     <div className="flex-1">
-                      <p className="font-semibold text-foreground">{place.name}</p>
-                      <p className="text-sm text-muted-foreground">{place.distance} away</p>
-                      <p className="text-xs text-muted-foreground mt-1">{place.description}</p>
+                      <p className="font-light text-foreground group-hover:text-accent transition">{place.name}</p>
+                      <p className="text-xs text-foreground/50 font-light mt-1">{place.distance} away</p>
+                      <p className="text-xs text-foreground/60 font-light mt-1">{place.description}</p>
                     </div>
                   </div>
                 ))}
@@ -47,13 +56,18 @@ export default function LocationSection() {
 
             {/* Transportation Info */}
             <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6">How to Reach</h3>
-              <div className="grid grid-cols-2 gap-4">
+              <h3 className="text-lg font-light text-foreground mb-6 tracking-wide uppercase">How to Reach</h3>
+              <div className="grid grid-cols-2 gap-3">
                 {transportInfo.map((info, idx) => (
-                  <div key={idx} className="bg-primary/10 border border-primary/20 p-4 rounded-lg">
-                    <p className="font-semibold text-primary text-lg">{info.time}</p>
-                    <p className="text-sm font-medium text-foreground">{info.mode}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{info.detail}</p>
+                  <div
+                    key={idx}
+                    className="bg-secondary border border-border/30 p-4 rounded-lg hover:border-accent/50 transition-all group cursor-pointer"
+                  >
+                    <p className="text-lg text-accent font-light group-hover:scale-110 transition-transform origin-left">
+                      {info.time}
+                    </p>
+                    <p className="text-xs font-light text-foreground mt-1 tracking-wide">{info.mode}</p>
+                    <p className="text-xs text-foreground/50 font-light mt-2">{info.detail}</p>
                   </div>
                 ))}
               </div>
@@ -61,7 +75,7 @@ export default function LocationSection() {
           </div>
 
           {/* Map */}
-          <div className="bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg overflow-hidden h-96 md:h-full md:min-h-96">
+          <div className="bg-gradient-to-br from-secondary to-background rounded-lg overflow-hidden h-96 md:h-full md:min-h-[500px] border border-border/30 hover:border-accent/30 transition-all">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3665.5555555555556!2d77.4!3d23.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDEyJzAwLjAiTiA3N8KwMjQnMDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
               width="100%"

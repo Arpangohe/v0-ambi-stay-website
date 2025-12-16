@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 
 export default function ContactSection() {
@@ -78,37 +77,45 @@ export default function ContactSection() {
   ]
 
   return (
-    <section id="contact" className="py-20 bg-primary text-primary-foreground">
+    <section id="contact" className="py-32 bg-card border-t border-border/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">Get in Touch</h2>
-          <p className="text-lg text-primary-foreground/90">We'd love to hear from you. Reach out anytime!</p>
+        {/* Header */}
+        <div className="mb-16">
+          <p className="text-xs text-accent font-light tracking-widest uppercase mb-4">Contact</p>
+          <h2 className="font-light text-5xl md:text-6xl text-foreground mb-6" style={{ fontFamily: "Georgia, serif" }}>
+            Get in Touch
+          </h2>
+          <p className="text-foreground/60 font-light text-lg">
+            Have questions? We'd love to help. Reach out through any of these channels.
+          </p>
         </div>
 
         {/* Contact Methods */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-3 gap-6 mb-16">
           {contactMethods.map((method, idx) => (
             <a
               key={idx}
               href={method.link}
-              className="text-center p-6 bg-primary-foreground/10 rounded-lg hover:bg-primary-foreground/20 transition-all hover:scale-105"
+              className="group p-8 bg-background border border-border/30 rounded-lg hover:border-accent/50 hover:bg-secondary/20 transition-all text-center hover:scale-105"
             >
-              <div className="text-5xl mb-4">{method.icon}</div>
-              <h3 className="font-bold text-lg mb-2">{method.title}</h3>
-              <p className="text-primary-foreground/90 font-semibold mb-1">{method.value}</p>
-              <p className="text-sm text-primary-foreground/70">{method.description}</p>
+              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform origin-center">
+                {method.icon}
+              </div>
+              <h3 className="font-light text-lg text-foreground mb-2 tracking-wide">{method.title}</h3>
+              <p className="text-foreground/80 font-light mb-2 group-hover:text-accent transition">{method.value}</p>
+              <p className="text-xs text-foreground/50 font-light">{method.description}</p>
             </a>
           ))}
         </div>
 
         {/* Contact Form */}
-        <div className="bg-primary-foreground/10 rounded-lg p-8 max-w-2xl mx-auto mb-12">
+        <div className="bg-background border border-border/30 rounded-lg p-8 max-w-2xl mx-auto mb-12">
           {submitted ? (
-            <div className="text-center py-8">
+            <div className="text-center py-12 animate-fade-in-up">
               <div className="text-5xl mb-4">✓</div>
-              <h3 className="text-2xl font-bold mb-2">Thank You!</h3>
-              <p className="text-primary-foreground/90">
-                Your message has been sent successfully. We'll get back to you soon!
+              <h3 className="text-2xl font-light text-foreground mb-2">Thank You!</h3>
+              <p className="text-foreground/60 font-light">
+                Your message has been sent successfully. We'll get back to you soon.
               </p>
             </div>
           ) : (
@@ -120,11 +127,11 @@ export default function ContactSection() {
                   placeholder="Your Name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 rounded-lg bg-primary-foreground/20 text-primary-foreground placeholder-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary-foreground ${
-                    errors.name ? "ring-2 ring-red-400" : ""
+                  className={`w-full px-4 py-3 rounded-lg bg-secondary border border-border text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-accent font-light ${
+                    errors.name ? "ring-2 ring-destructive" : ""
                   }`}
                 />
-                {errors.name && <p className="text-sm text-red-200 mt-1">{errors.name}</p>}
+                {errors.name && <p className="text-xs text-destructive mt-1 font-light">{errors.name}</p>}
               </div>
 
               <div>
@@ -134,11 +141,11 @@ export default function ContactSection() {
                   placeholder="Your Email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 rounded-lg bg-primary-foreground/20 text-primary-foreground placeholder-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary-foreground ${
-                    errors.email ? "ring-2 ring-red-400" : ""
+                  className={`w-full px-4 py-3 rounded-lg bg-secondary border border-border text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-accent font-light ${
+                    errors.email ? "ring-2 ring-destructive" : ""
                   }`}
                 />
-                {errors.email && <p className="text-sm text-red-200 mt-1">{errors.email}</p>}
+                {errors.email && <p className="text-xs text-destructive mt-1 font-light">{errors.email}</p>}
               </div>
 
               <div>
@@ -148,7 +155,7 @@ export default function ContactSection() {
                   placeholder="Your Phone (Optional)"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg bg-primary-foreground/20 text-primary-foreground placeholder-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary-foreground"
+                  className="w-full px-4 py-3 rounded-lg bg-secondary border border-border text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-accent font-light"
                 />
               </div>
 
@@ -159,16 +166,16 @@ export default function ContactSection() {
                   rows={4}
                   value={formData.message}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 rounded-lg bg-primary-foreground/20 text-primary-foreground placeholder-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary-foreground ${
-                    errors.message ? "ring-2 ring-red-400" : ""
+                  className={`w-full px-4 py-3 rounded-lg bg-secondary border border-border text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-accent font-light resize-none ${
+                    errors.message ? "ring-2 ring-destructive" : ""
                   }`}
                 />
-                {errors.message && <p className="text-sm text-red-200 mt-1">{errors.message}</p>}
+                {errors.message && <p className="text-xs text-destructive mt-1 font-light">{errors.message}</p>}
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-primary-foreground text-primary px-6 py-3 rounded-lg font-bold hover:bg-primary-foreground/90 transition-all hover:scale-105"
+                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3 rounded-lg font-light text-sm tracking-wide uppercase transition-all hover:scale-105"
               >
                 Send Message
               </button>
@@ -176,23 +183,26 @@ export default function ContactSection() {
           )}
         </div>
 
-        {/* Social Links */}
-        <div className="text-center">
-          <p className="text-primary-foreground/90 mb-4">Follow us on social media</p>
-          <div className="flex justify-center gap-6">
+        {/* Social Links & Footer */}
+        <div className="text-center pt-8 border-t border-border/30">
+          <p className="text-foreground/60 font-light mb-6 tracking-wide text-sm uppercase">
+            Follow us on social media
+          </p>
+          <div className="flex justify-center gap-4 mb-8">
             {socialLinks.map((social, idx) => (
               <a
                 key={idx}
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 bg-primary-foreground/20 rounded-full flex items-center justify-center hover:bg-primary-foreground/30 transition-all hover:scale-110"
+                className="w-12 h-12 bg-secondary border border-border/30 rounded-full flex items-center justify-center hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all hover:scale-110"
                 aria-label={social.name}
               >
-                <span className="text-xl">{social.icon}</span>
+                <span className="text-lg">{social.icon}</span>
               </a>
             ))}
           </div>
+          <p className="text-xs text-foreground/40 font-light tracking-wide">© 2025 Ambi Stay. All rights reserved.</p>
         </div>
       </div>
     </section>
