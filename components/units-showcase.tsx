@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { MapPin, Users, DollarSign } from "lucide-react"
+import { MapPin, Users, DollarSign, ExternalLink } from "lucide-react"
 
 interface Unit {
   id: string
@@ -20,6 +20,7 @@ interface Unit {
   checkIn: string
   checkOut: string
   deposit: number
+  airbnbLink: string
 }
 
 const units: Unit[] = [
@@ -27,7 +28,7 @@ const units: Unit[] = [
     id: "kerwa",
     name: "Ambi Farm",
     location: "Kerwa Dam Road",
-    image: "/luxury-farmhouse-with-pool-outdoor-seating.jpg",
+    image: "/images/kerwa_farm.jpg",
     capacity: "Up to 4 guests",
     weekdayRate: 6500,
     weekdayPeople: 4,
@@ -52,12 +53,14 @@ const units: Unit[] = [
     checkIn: "1:00 PM",
     checkOut: "11:00 AM",
     deposit: 4500,
+    airbnbLink:
+      "https://www.airbnb.co.in/rooms/29875712?guests=1&adults=1&s=67&unique_share_id=7150db42-47a3-4d52-8e95-cef101566db6",
   },
   {
     id: "suraj",
     name: "Ambi Farm",
     location: "Suraj Nagar",
-    image: "/luxury-single-room-with-private-pool-and-garden.jpg",
+    image: "/images/img-3513.jpg",
     capacity: "Up to 2 guests",
     weekdayRate: 3000,
     weekdayPeople: 2,
@@ -75,12 +78,14 @@ const units: Unit[] = [
     checkIn: "1:00 PM",
     checkOut: "11:00 AM",
     deposit: 2000,
+    airbnbLink:
+      "https://www.airbnb.co.in/rooms/1235346656616601741?guests=1&adults=1&s=67&unique_share_id=c9bf689f-8fcf-47c7-8829-49a15e5d954b",
   },
   {
     id: "happy1",
     name: "Happy Stay 1",
     location: "Bhopal",
-    image: "/comfortable-residential-property-for-4-people.jpg",
+    image: "/images/Happy_stay_1.webp",
     capacity: "Up to 4 guests",
     weekdayRate: 3500,
     weekdayPeople: 4,
@@ -98,12 +103,14 @@ const units: Unit[] = [
     checkIn: "1:00 PM",
     checkOut: "11:00 AM",
     deposit: 2000,
+    airbnbLink:
+      "https://www.airbnb.co.in/rooms/33175149?guests=1&adults=1&s=67&unique_share_id=16506a48-55ef-4d5a-9932-302fac553205",
   },
   {
     id: "happy2",
     name: "Happy Stay 2",
     location: "Bhopal",
-    image: "/cozy-residential-space-perfect-for-groups.jpg",
+    image: "/images/Happy_stay_2.jpg",
     capacity: "Up to 4 guests",
     weekdayRate: 3500,
     weekdayPeople: 4,
@@ -121,11 +128,17 @@ const units: Unit[] = [
     checkIn: "1:00 PM",
     checkOut: "11:00 AM",
     deposit: 2000,
+    airbnbLink:
+      "https://www.airbnb.co.in/rooms/51832794?guests=1&adults=1&s=67&unique_share_id=e9b987d3-e12e-4c29-ba33-9e804da5c4ef",
   },
 ]
 
 export default function UnitsShowcase() {
   const [selectedUnit, setSelectedUnit] = useState<string | null>(null)
+
+  const handleBookNow = (airbnbLink: string) => {
+    window.open(airbnbLink, "_blank", "noopener,noreferrer")
+  }
 
   const handleInquiry = (unitId: string) => {
     const unit = units.find((u) => u.id === unitId)
@@ -230,15 +243,16 @@ export default function UnitsShowcase() {
                   <div className="flex gap-3">
                     <button
                       onClick={() => setSelectedUnit(unit.id)}
-                      className="flex-1 bg-gray-100 hover:bg-gray-200 text-foreground border border-gray-300 rounded-lg py-2.5 text-sm font-semibold transition-all duration-300"
+                      className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-lg py-2.5 text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
                     >
                       View Details
                     </button>
                     <button
-                      onClick={() => handleInquiry(unit.id)}
-                      className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-lg py-2.5 text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
+                      onClick={() => handleBookNow(unit.airbnbLink)}
+                      className="flex-1 bg-gray-100 hover:bg-gray-200 text-foreground border border-gray-300 rounded-lg py-2.5 text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2"
                     >
-                      Book Now
+                      <span>Book Now</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
@@ -356,16 +370,17 @@ export default function UnitsShowcase() {
                         </div>
                       </div>
 
-                      {/* CTA */}
+                      {/* CTA - Direct to Airbnb */}
                       <div className="flex gap-3">
                         <button
                           onClick={() => {
                             setSelectedUnit(null)
-                            handleInquiry(unit.id)
+                            handleBookNow(unit.airbnbLink)
                           }}
-                          className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-lg py-3 text-base font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
+                          className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-lg py-3 text-base font-semibold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
                         >
-                          Inquire Now
+                          <span>Book on Airbnb</span>
+                          <ExternalLink className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => setSelectedUnit(null)}

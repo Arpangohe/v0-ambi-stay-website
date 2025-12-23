@@ -4,6 +4,7 @@ import { useState } from "react"
 import HeroSection from "@/components/hero-section"
 import ReviewsAndRatings from "@/components/reviews-and-ratings"
 import UnitsShowcase from "@/components/units-showcase"
+import WhyAmbiStay from "@/components/why-ambi-stay"
 import LocationSection from "@/components/location-section"
 import ContactSection from "@/components/contact-section"
 import Navigation from "@/components/navigation"
@@ -18,9 +19,11 @@ export default function Home() {
       <Navigation />
       <HeroSection onBookClick={() => setShowBooking(true)} />
 
+      <UnitsShowcase />
+
       <ReviewsAndRatings />
 
-      <UnitsShowcase />
+      <WhyAmbiStay />
 
       <LocationSection />
       <ContactSection />

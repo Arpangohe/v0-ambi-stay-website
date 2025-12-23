@@ -50,12 +50,12 @@ export default function HeroSection({ onBookClick }: HeroSectionProps) {
           </p>
 
           <div className="flex gap-4 flex-wrap">
-            <button
-              onClick={onBookClick}
+            <a
+              href="#properties"
               className="px-8 py-3 rounded-full bg-primary text-white hover:bg-primary/90 transition font-light text-sm tracking-wide uppercase shadow-lg"
             >
               Explore Properties
-            </button>
+            </a>
             <button className="px-8 py-3 rounded-full border border-white/50 text-white hover:border-primary hover:text-primary hover:bg-primary/5 transition font-light text-sm tracking-wide uppercase">
               Learn More
             </button>
