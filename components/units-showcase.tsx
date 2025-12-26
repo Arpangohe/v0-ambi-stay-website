@@ -1,26 +1,29 @@
 "use client"
 
 import { useState } from "react"
-import { MapPin, Users, DollarSign, ExternalLink } from "lucide-react"
+import { MapPin, Users, DollarSign, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react"
 
 interface Unit {
   id: string
   name: string
   location: string
   image: string
+  images?: string[]
   capacity: string
   weekdayRate: number
   weekdayPeople: number
-  weekendRate: number
-  weekendPeople: number
+  weekendRate?: number
+  weekendPeople?: number
   additionalPerPerson: number
   maxCapacity: string
+  maxGuests?: number
   highlights: string[]
   amenities: string[]
   checkIn: string
   checkOut: string
   deposit: number
   airbnbLink: string
+  hasWeekendRate: boolean
 }
 
 const units: Unit[] = [
@@ -55,12 +58,14 @@ const units: Unit[] = [
     deposit: 4500,
     airbnbLink:
       "https://www.airbnb.co.in/rooms/29875712?guests=1&adults=1&s=67&unique_share_id=7150db42-47a3-4d52-8e95-cef101566db6",
+    hasWeekendRate: true,
   },
   {
     id: "suraj",
     name: "Ambi Farm",
     location: "Suraj Nagar",
-    image: "/images/img-3513.jpg",
+    image: "/images/1.png",
+    images: ["/images/1.png", "/images/4.png", "/images/3.png", "/images/2.png"],
     capacity: "Up to 2 guests",
     weekdayRate: 3000,
     weekdayPeople: 2,
@@ -69,17 +74,25 @@ const units: Unit[] = [
     additionalPerPerson: 500,
     maxCapacity: "4-5 overnight | 25-30 day events",
     highlights: [
-      "Tranquil single room retreat",
-      "Private swimming pool",
-      "Garden with dining area",
-      "Ideal for couples or small groups",
+      "Tranquil farmhouse retreat",
+      "Professional pool facilities",
+      "Expansive gardens with recreation",
+      "Perfect for groups and events",
     ],
-    amenities: ["Private Pool", "Private Kitchen", "Air Conditioning", "Private Dining", "Free WiFi", "Pet Friendly"],
+    amenities: [
+      "Swimming Pool",
+      "Outdoor Spaces",
+      "Gardens & Recreation",
+      "Air Conditioning",
+      "Free WiFi",
+      "Event Catering Available",
+    ],
     checkIn: "1:00 PM",
     checkOut: "11:00 AM",
     deposit: 2000,
     airbnbLink:
       "https://www.airbnb.co.in/rooms/1235346656616601741?guests=1&adults=1&s=67&unique_share_id=c9bf689f-8fcf-47c7-8829-49a15e5d954b",
+    hasWeekendRate: true,
   },
   {
     id: "happy1",
@@ -89,10 +102,9 @@ const units: Unit[] = [
     capacity: "Up to 4 guests",
     weekdayRate: 3500,
     weekdayPeople: 4,
-    weekendRate: 4000,
-    weekendPeople: 4,
     additionalPerPerson: 500,
     maxCapacity: "4 overnight guests",
+    maxGuests: 8,
     highlights: [
       "Comfortable residential setting",
       "Great for family stays",
@@ -105,6 +117,7 @@ const units: Unit[] = [
     deposit: 2000,
     airbnbLink:
       "https://www.airbnb.co.in/rooms/33175149?guests=1&adults=1&s=67&unique_share_id=16506a48-55ef-4d5a-9932-302fac553205",
+    hasWeekendRate: false,
   },
   {
     id: "happy2",
@@ -114,10 +127,9 @@ const units: Unit[] = [
     capacity: "Up to 4 guests",
     weekdayRate: 3500,
     weekdayPeople: 4,
-    weekendRate: 4000,
-    weekendPeople: 4,
     additionalPerPerson: 500,
     maxCapacity: "4 overnight guests",
+    maxGuests: 8,
     highlights: [
       "Cozy and welcoming atmosphere",
       "Perfect for team stays",
@@ -130,21 +142,30 @@ const units: Unit[] = [
     deposit: 2000,
     airbnbLink:
       "https://www.airbnb.co.in/rooms/51832794?guests=1&adults=1&s=67&unique_share_id=e9b987d3-e12e-4c29-ba33-9e804da5c4ef",
+    hasWeekendRate: false,
   },
 ]
 
 export default function UnitsShowcase() {
   const [selectedUnit, setSelectedUnit] = useState<string | null>(null)
+  const [imageIndex, setImageIndex] = useState<{ [key: string]: number }>({})
 
   const handleBookNow = (airbnbLink: string) => {
     window.open(airbnbLink, "_blank", "noopener,noreferrer")
   }
 
-  const handleInquiry = (unitId: string) => {
-    const unit = units.find((u) => u.id === unitId)
-    if (unit) {
-      window.location.href = `mailto:info@ambistay.com?subject=Inquiry for ${unit.name} - ${unit.location}`
-    }
+  const nextImage = (unitId: string, totalImages: number) => {
+    setImageIndex((prev) => ({
+      ...prev,
+      [unitId]: ((prev[unitId] || 0) + 1) % totalImages,
+    }))
+  }
+
+  const prevImage = (unitId: string, totalImages: number) => {
+    setImageIndex((prev) => ({
+      ...prev,
+      [unitId]: ((prev[unitId] || 0) - 1 + totalImages) % totalImages,
+    }))
   }
 
   return (
@@ -172,10 +193,37 @@ export default function UnitsShowcase() {
                 {/* Image Container */}
                 <div className="relative h-64 bg-gray-100 overflow-hidden">
                   <img
-                    src={unit.image || "/placeholder.svg"}
+                    src={unit.images ? unit.images[imageIndex[unit.id] || 0] : unit.image}
                     alt={unit.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  {unit.images && unit.images.length > 1 && (
+                    <>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          prevImage(unit.id, unit.images!.length)
+                        }}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-10"
+                        aria-label="Previous image"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          nextImage(unit.id, unit.images!.length)
+                        }}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-10"
+                        aria-label="Next image"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                      <div className="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded-full">
+                        {(imageIndex[unit.id] || 0) + 1} / {unit.images.length}
+                      </div>
+                    </>
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
 
@@ -191,19 +239,23 @@ export default function UnitsShowcase() {
                   </div>
 
                   {/* Pricing */}
-                  <div className="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-gray-200">
+                  <div
+                    className={`grid ${unit.hasWeekendRate ? "grid-cols-2" : "grid-cols-1"} gap-4 mb-6 pb-6 border-b border-gray-200`}
+                  >
                     <div>
                       <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1 font-semibold">
-                        Weekdays
+                        {unit.hasWeekendRate ? "Weekdays" : "Standard Rate"}
                       </p>
                       <p className="text-xl font-semibold text-foreground">₹{unit.weekdayRate.toLocaleString()}</p>
                       <p className="text-xs text-muted-foreground">{unit.weekdayPeople} people</p>
                     </div>
-                    <div className="bg-primary/5 p-3 rounded-lg">
-                      <p className="text-xs text-primary uppercase tracking-wide mb-1 font-semibold">Weekends</p>
-                      <p className="text-xl font-semibold text-primary">₹{unit.weekendRate.toLocaleString()}</p>
-                      <p className="text-xs text-primary/70">{unit.weekendPeople} people</p>
-                    </div>
+                    {unit.hasWeekendRate && unit.weekendRate && (
+                      <div className="bg-primary/5 p-3 rounded-lg">
+                        <p className="text-xs text-primary uppercase tracking-wide mb-1 font-semibold">Weekends</p>
+                        <p className="text-xl font-semibold text-primary">₹{unit.weekendRate.toLocaleString()}</p>
+                        <p className="text-xs text-primary/70">{unit.weekendPeople} people</p>
+                      </div>
+                    )}
                   </div>
 
                   {/* Key Info */}
@@ -222,6 +274,15 @@ export default function UnitsShowcase() {
                         <p className="text-sm text-foreground">₹{unit.additionalPerPerson}/person</p>
                       </div>
                     </div>
+                    {unit.maxGuests && (
+                      <div className="flex items-start gap-3">
+                        <span className="text-lg text-primary">👥</span>
+                        <div>
+                          <p className="text-xs text-muted-foreground uppercase tracking-wide">Maximum Guests</p>
+                          <p className="text-sm text-foreground">{unit.maxGuests} guests maximum overnight stay</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Quick Amenities */}
@@ -282,29 +343,55 @@ export default function UnitsShowcase() {
                   .filter((u) => u.id === selectedUnit)
                   .map((unit) => (
                     <div key={unit.id}>
-                      {/* Image */}
-                      <img
-                        src={unit.image || "/placeholder.svg"}
-                        alt={unit.name}
-                        className="w-full h-64 object-cover rounded-lg mb-6"
-                      />
+                      <div className="relative mb-6">
+                        <img
+                          src={unit.images ? unit.images[imageIndex[unit.id] || 0] : unit.image}
+                          alt={unit.name}
+                          className="w-full h-64 object-cover rounded-lg"
+                        />
+                        {unit.images && unit.images.length > 1 && (
+                          <>
+                            <button
+                              onClick={() => prevImage(unit.id, unit.images!.length)}
+                              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+                              aria-label="Previous image"
+                            >
+                              <ChevronLeft className="w-5 h-5" />
+                            </button>
+                            <button
+                              onClick={() => nextImage(unit.id, unit.images!.length)}
+                              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+                              aria-label="Next image"
+                            >
+                              <ChevronRight className="w-5 h-5" />
+                            </button>
+                            <div className="absolute bottom-2 right-2 bg-black/50 text-white text-sm px-3 py-1 rounded-full">
+                              {(imageIndex[unit.id] || 0) + 1} / {unit.images.length}
+                            </div>
+                          </>
+                        )}
+                      </div>
 
                       {/* Pricing Details */}
-                      <div className="grid grid-cols-2 gap-4 mb-8">
+                      <div className={`grid ${unit.hasWeekendRate ? "grid-cols-2" : "grid-cols-1"} gap-4 mb-8`}>
                         <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
                           <p className="text-xs text-muted-foreground uppercase tracking-wide mb-2 font-semibold">
-                            Weekday Rate
+                            {unit.hasWeekendRate ? "Weekday Rate" : "Standard Rate"}
                           </p>
                           <p className="text-2xl font-semibold text-foreground">₹{unit.weekdayRate.toLocaleString()}</p>
-                          <p className="text-sm text-muted-foreground">Mon-Thu | {unit.weekdayPeople} people</p>
-                        </div>
-                        <div className="p-4 bg-primary/5 rounded-lg border border-primary/20">
-                          <p className="text-xs text-primary uppercase tracking-wide mb-2 font-semibold">
-                            Weekend Rate
+                          <p className="text-sm text-muted-foreground">
+                            {unit.hasWeekendRate ? "Mon-Thu" : "All days"} | {unit.weekdayPeople} people
                           </p>
-                          <p className="text-2xl font-semibold text-primary">₹{unit.weekendRate.toLocaleString()}</p>
-                          <p className="text-sm text-primary/70">Fri-Sun | {unit.weekendPeople} people</p>
                         </div>
+                        {unit.hasWeekendRate && unit.weekendRate && (
+                          <div className="p-4 bg-primary/5 rounded-lg border border-primary/20">
+                            <p className="text-xs text-primary uppercase tracking-wide mb-2 font-semibold">
+                              Weekend Rate
+                            </p>
+                            <p className="text-2xl font-semibold text-primary">₹{unit.weekendRate.toLocaleString()}</p>
+                            <p className="text-sm text-primary/70">Fri-Sun | {unit.weekendPeople} people</p>
+                          </div>
+                        )}
                       </div>
 
                       {/* Capacity & Booking Info */}
@@ -370,21 +457,29 @@ export default function UnitsShowcase() {
                         </div>
                       </div>
 
+                      {/* Maximum Guests */}
+                      {unit.maxGuests && (
+                        <div className="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                          <p className="text-sm text-gray-600 font-medium">MAXIMUM GUESTS</p>
+                          <p className="text-lg font-semibold text-gray-900 flex items-center gap-2 mt-1">
+                            <span>👥</span>
+                            {unit.maxGuests} guests maximum for overnight stay
+                          </p>
+                        </div>
+                      )}
+
                       {/* CTA - Direct to Airbnb */}
                       <div className="flex gap-3">
                         <button
-                          onClick={() => {
-                            setSelectedUnit(null)
-                            handleBookNow(unit.airbnbLink)
-                          }}
-                          className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-lg py-3 text-base font-semibold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                          onClick={() => window.open(unit.airbnbLink, "_blank", "noopener,noreferrer")}
+                          className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-lg py-3 font-semibold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
                         >
                           <span>Book on Airbnb</span>
                           <ExternalLink className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => setSelectedUnit(null)}
-                          className="flex-1 bg-gray-100 hover:bg-gray-200 text-foreground rounded-lg py-3 text-base font-semibold transition-all duration-300"
+                          className="flex-1 bg-gray-100 hover:bg-gray-200 text-foreground border border-gray-300 rounded-lg py-3 font-semibold transition-all duration-300"
                         >
                           Close
                         </button>

@@ -14,9 +14,16 @@ export default function HeroSection({ onBookClick }: HeroSectionProps) {
   }, [])
 
   return (
-    <div className="relative w-full h-screen bg-white overflow-hidden pt-20">
-      {/* Video Background */}
-      <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover">
+    <div
+      className="relative w-full h-screen bg-white overflow-hidden pt-20"
+      style={{
+        backgroundImage: "url('/images/kerwa-farm.avif')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Video Background - Replaced with static image */}
+      <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover hidden">
         <source src="#" type="video/mp4" />
       </video>
 
@@ -28,7 +35,7 @@ export default function HeroSection({ onBookClick }: HeroSectionProps) {
       >
         <div className="max-w-3xl">
           <p className="text-xs md:text-sm text-primary font-light tracking-widest uppercase mb-6">
-            Premium Luxury Residences
+            Stays • Farmhouses • Residences
           </p>
 
           <h1
@@ -38,15 +45,15 @@ export default function HeroSection({ onBookClick }: HeroSectionProps) {
             Ambi Stay
           </h1>
 
-          {/* Subheading */}
           <p className="text-sm md:text-base text-white/80 mb-12 font-light leading-relaxed tracking-wide uppercase">
-            Holistic Luxury in Perfect Harmony
+            Nature First. Comfort Always.
           </p>
 
-          {/* Description */}
+          <p className="text-base md:text-lg text-white/70 mb-6 font-light leading-relaxed max-w-2xl">
+            Rustic farmhouse stays with open spaces, fresh air, and a relaxed natural setting.
+          </p>
           <p className="text-base md:text-lg text-white/70 mb-16 font-light leading-relaxed max-w-2xl">
-            Discover luxury residences and exclusive vacation homes designed to elevate your lifestyle. Experience
-            timeless refinement, modern comfort, and unparalleled serenity.
+            Practical, comfortable 2 BHK residences with terraces, ideal for short and long stays.
           </p>
 
           <div className="flex gap-4 flex-wrap">
