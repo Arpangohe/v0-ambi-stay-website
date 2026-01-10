@@ -269,7 +269,7 @@ export default function ReviewsAndRatings() {
 
         {/* Property Advantages */}
         <div className="bg-card/30 border border-border/30 rounded-2xl p-8 md:p-12 backdrop-blur-sm">
-          <h3 className="text-2xl font-light tracking-tight text-foreground mb-2">Why Choose Ambi Stay?</h3>
+          <h3 className="text-2xl font-light tracking-tight text-foreground mb-2">Why Choose Us?</h3>
           <p className="text-muted-foreground mb-10">
             Discover what makes Ambi Stay the perfect choice for your next getaway
           </p>

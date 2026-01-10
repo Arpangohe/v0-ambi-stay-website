@@ -154,6 +154,13 @@ export default function UnitsShowcase() {
     window.open(airbnbLink, "_blank", "noopener,noreferrer")
   }
 
+  const handleBookDirect = (unitName: string) => {
+    const phoneNumber = "919893738999"
+    const message = `Hello! I'm interested in booking ${unitName} at Ambi Stay. Could you help me with availability and pricing?`
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+    window.open(whatsappUrl, "_blank")
+  }
+
   const nextImage = (unitId: string, totalImages: number) => {
     setImageIndex((prev) => ({
       ...prev,
@@ -301,19 +308,28 @@ export default function UnitsShowcase() {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-3">
+                  <div className="flex flex-col gap-2">
                     <button
-                      onClick={() => setSelectedUnit(unit.id)}
-                      className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-lg py-2.5 text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
+                      onClick={() => handleBookDirect(unit.name)}
+                      className="w-full bg-green-500 hover:bg-green-600 text-white rounded-lg py-2.5 text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
                     >
-                      View Details
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.413-2.393-1.474-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.031 1.378l-.361.214-3.741-.982.998 3.645-.235.364a9.964 9.964 0 -1.51-13.228 9.874 9.874 0 005.283-1.542l.355-.213 3.741.982-.999-3.645.236-.364c.552.164 1.088.427 1.56.786" />
+                      </svg>
+                      Book Direct
                     </button>
                     <button
                       onClick={() => handleBookNow(unit.airbnbLink)}
-                      className="flex-1 bg-gray-100 hover:bg-gray-200 text-foreground border border-gray-300 rounded-lg py-2.5 text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2"
+                      className="w-full bg-gray-100 hover:bg-gray-200 text-foreground border border-gray-300 rounded-lg py-2.5 text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2"
                     >
-                      <span>Book Now</span>
+                      <span>Book on Airbnb</span>
                       <ExternalLink className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => setSelectedUnit(unit.id)}
+                      className="w-full bg-primary hover:bg-primary/90 text-white rounded-lg py-2.5 text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
+                    >
+                      View Details
                     </button>
                   </div>
                 </div>
@@ -459,7 +475,7 @@ export default function UnitsShowcase() {
 
                       {/* Maximum Guests */}
                       {unit.maxGuests && (
-                        <div className="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="mb-8 p-3 bg-gray-50 rounded-lg border border-gray-200">
                           <p className="text-sm text-gray-600 font-medium">MAXIMUM GUESTS</p>
                           <p className="text-lg font-semibold text-gray-900 flex items-center gap-2 mt-1">
                             <span>👥</span>
@@ -468,21 +484,25 @@ export default function UnitsShowcase() {
                         </div>
                       )}
 
-                      {/* CTA - Direct to Airbnb */}
-                      <div className="flex gap-3">
+                      <div className="flex flex-col gap-3 pt-6 border-t border-gray-200">
                         <button
-                          onClick={() => window.open(unit.airbnbLink, "_blank", "noopener,noreferrer")}
-                          className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-lg py-3 font-semibold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                          onClick={() => handleBookDirect(unit.name)}
+                          className="w-full bg-green-500 hover:bg-green-600 text-white rounded-lg py-3 text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                        >
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.413-2.393-1.474-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.031 1.378l-.361.214-3.741-.982.998 3.645-.235.364a9.964 9.964 0 -1.51-13.228 9.874 9.874 0 005.283-1.542l.355-.213 3.741.982-.999-3.645.236-.364c.552.164 1.088.427 1.56.786" />
+                          </svg>
+                          Book Direct via WhatsApp
+                        </button>
+                        <a
+                          href={unit.airbnbLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full bg-primary hover:bg-primary/90 text-white rounded-lg py-3 text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
                         >
                           <span>Book on Airbnb</span>
                           <ExternalLink className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => setSelectedUnit(null)}
-                          className="flex-1 bg-gray-100 hover:bg-gray-200 text-foreground border border-gray-300 rounded-lg py-3 font-semibold transition-all duration-300"
-                        >
-                          Close
-                        </button>
+                        </a>
                       </div>
                     </div>
                   ))}

@@ -50,29 +50,29 @@ export default function ContactSection() {
     {
       icon: "📞",
       title: "Call Us",
-      value: "+91 755 XXX XXXX",
-      link: "tel:+917551234567",
+      value: "+91 700 056 7378",
+      link: "tel:+917000567378",
       description: "Mon-Sun, 9 AM - 9 PM",
     },
     {
       icon: "💬",
       title: "WhatsApp",
       value: "Chat with us",
-      link: "https://wa.me/917551234567",
+      link: "https://wa.me/917000567378",
       description: "Instant replies",
     },
     {
       icon: "📧",
       title: "Email",
-      value: "info@ambistay.in",
-      link: "mailto:info@ambistay.in",
+      value: "hello@ambistay.in",
+      link: "mailto:hello@ambistay.in",
       description: "We'll respond within 24 hours",
     },
   ]
 
   const socialLinks = [
     { name: "Facebook", icon: "f", url: "https://facebook.com" },
-    { name: "Instagram", icon: "📷", url: "https://instagram.com" },
+    { name: "Instagram", icon: "📷", url: "https://instagram.com/ambistay" },
     { name: "Twitter", icon: "𝕏", url: "https://twitter.com" },
   ]
 
