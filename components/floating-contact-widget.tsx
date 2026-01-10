@@ -12,7 +12,7 @@ export default function FloatingContactWidget() {
       label: "WhatsApp",
       color: "bg-green-500 hover:bg-green-600",
       onClick: () => {
-        const phoneNumber = "919893738999"
+        const phoneNumber = "917000567378"
         const message = "Hello! I'd like to know more about Ambi Stay properties."
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
         window.open(whatsappUrl, "_blank")
@@ -23,7 +23,7 @@ export default function FloatingContactWidget() {
       label: "Call",
       color: "bg-blue-500 hover:bg-blue-600",
       onClick: () => {
-        window.location.href = "tel:+919893738999"
+        window.location.href = "tel:+917000567378"
       },
     },
     {
@@ -31,7 +31,7 @@ export default function FloatingContactWidget() {
       label: "Email",
       color: "bg-red-500 hover:bg-red-600",
       onClick: () => {
-        window.location.href = "mailto:info@ambistay.com"
+        window.location.href = "mailto:hello@ambistay.com"
       },
     },
   ]
