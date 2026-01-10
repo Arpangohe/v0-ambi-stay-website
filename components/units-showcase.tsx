@@ -155,7 +155,7 @@ export default function UnitsShowcase() {
   }
 
   const handleBookDirect = (unitName: string) => {
-    const phoneNumber = "919893738999"
+    const phoneNumber = "91700567378"
     const message = `Hello! I'm interested in booking ${unitName} at Ambi Stay. Could you help me with availability and pricing?`
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, "_blank")
