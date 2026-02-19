@@ -7,42 +7,42 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md z-50 border-b border-gray-200">
+    <nav className="nav-sticky fixed top-0 left-0 right-0 bg-white/98 backdrop-blur-lg z-50 border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex items-center">
             <span
-              className="font-light text-lg text-foreground tracking-widest uppercase"
-              style={{ fontFamily: "Georgia, serif" }}
+              className="font-light text-xl tracking-widest text-foreground"
+              style={{ fontFamily: "Georgia, serif", letterSpacing: "0.15em" }}
             >
-              Ambi Stay
+              AMBI STAY
             </span>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-12">
+          <div className="hidden md:flex items-center gap-10">
             <Link
               href="#discover"
-              className="text-xs text-foreground/70 hover:text-primary transition font-light tracking-wider uppercase"
+              className="text-xs font-medium text-gray-600 hover:text-primary transition tracking-widest uppercase"
             >
               Discover
             </Link>
             <Link
               href="#properties"
-              className="text-xs text-foreground/70 hover:text-primary transition font-light tracking-wider uppercase"
+              className="text-xs font-medium text-gray-600 hover:text-primary transition tracking-widest uppercase"
             >
               Properties
             </Link>
             <Link
               href="#about"
-              className="text-xs text-foreground/70 hover:text-primary transition font-light tracking-wider uppercase"
+              className="text-xs font-medium text-gray-600 hover:text-primary transition tracking-widest uppercase"
             >
               About
             </Link>
             <Link
               href="#contact"
-              className="text-xs text-foreground/70 hover:text-primary transition font-light tracking-wider uppercase"
+              className="text-xs font-medium text-gray-600 hover:text-primary transition tracking-widest uppercase"
             >
               Contact
             </Link>
