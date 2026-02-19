@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { Star } from "lucide-react"
 
 interface Stat {
   value: number
@@ -9,14 +10,10 @@ interface Stat {
 }
 
 export default function WhyAmbiStay() {
-  const [stats, setStats] = useState<Stat[]>([
-    { value: 0, label: "Acres of Green Space", suffix: "+" },
-    { value: 0, label: "Guest Capacity", suffix: "" },
-    { value: 0, label: "Guest Rating", suffix: "/5" },
-  ])
+  const [stats, setStats] = useState<Stat[]>([{ value: 0, label: "Guest Rating", suffix: "/5" }])
 
   useEffect(() => {
-    const targets = [5, 50, 4.8]
+    const targets = [4.8]
     const intervals = targets.map((target, idx) => {
       let current = 0
       return setInterval(() => {
@@ -46,12 +43,26 @@ export default function WhyAmbiStay() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="flex flex-wrap gap-4 justify-center mb-16">
+          <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-lg shadow-sm hover:shadow-md transition">
+            <Star className="w-5 h-5 text-primary fill-primary" />
+            <span className="text-foreground font-medium">Airbnb Super Host Last 5 Years</span>
+          </div>
+          <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-lg shadow-sm hover:shadow-md transition">
+            <Star className="w-5 h-5 text-primary fill-primary" />
+            <span className="text-foreground font-medium">Top Airbnb in Bhopal</span>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-1 gap-8 mb-16 max-w-sm mx-auto">
           {stats.map((stat, idx) => (
             <div key={idx} className="text-center p-8 bg-white rounded-lg shadow-sm hover:shadow-md transition">
-              <div className="text-5xl font-bold text-primary mb-2">
-                {stat.value.toFixed(stat.value > 10 ? 0 : 1)}
-                {stat.suffix}
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Star className="w-8 h-8 text-primary fill-primary" />
+                <div className="text-5xl font-bold text-primary">
+                  {stat.value.toFixed(stat.value > 10 ? 0 : 1)}
+                  {stat.suffix}
+                </div>
               </div>
               <p className="text-foreground font-medium">{stat.label}</p>
             </div>
